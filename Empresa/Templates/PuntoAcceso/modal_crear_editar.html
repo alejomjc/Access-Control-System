@@ -1,0 +1,33 @@
+{% if origen == 'CREAR' %}
+    <form action="{% url 'empresa:punto-acceso-crear' %}" id="frm-punto" method="post" enctype="multipart/form-data">
+{% else %}
+    <form action="{% url 'empresa:punto-acceso-editar' punto.id %}" id="frm-punto" method="post" enctype="multipart/form-data">
+{% endif %}
+{% csrf_token %}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% if origen == 'CREAR' %}Crear Punto de Acceso{% else %}Modificar Punto de Acceso{% endif %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    {% include 'Generales/text.html' with nombre='nombre' label='Nombre' placeholder='Ingrese un nombre' valor_editar=punto.nombre %}
+                    {% include 'Generales/text.html' with nombre='direccion' label='Dirección' placeholder='Ingrese una dirección' valor_editar=punto.direccion %}
+                    {% include 'Generales/text.html' with nombre='correo_electronico' label='Correo Electrónico' placeholder='Ingrese un correo electrónico' valor_editar=punto.correo_electronico %}
+                    {% include 'Generales/text.html' with nombre='longitud' label='Longitud' placeholder='Ingrese la longitud' valor_editar=punto.longitud %}
+                    {% include 'Generales/text.html' with nombre='latitud' label='Latitud' placeholder='Ingrese la latitud' valor_editar=punto.latitud %}
+                    {% include 'Generales/select.html' with nombre='estado' valores=estados label='Estado' valor_editar=punto.estado %}
+                    {% include 'Generales/select.html' with nombre='horario' valores=horarios label='Horarios de Acceso' valor_editar=valores_horarios multiple=True %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    {% if origen == 'CREAR' %}Crear{% else %}Guardar{% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -77,9 +77,8 @@ class PuntoAcceso(models.Model):
         verbose_name_plural = 'Puntos de Acceso'
 
     @staticmethod
-    def data_form_empresa(datos):
+    def data_form_punto_acceso(datos):
         punto = PuntoAcceso()
-        punto.empresa_id = datos.get('empresa', None)
         punto.nombre = datos.get('nombre', '')
         punto.direccion = datos.get('direccion', '')
         punto.correo_electronico = datos.get('correo_electronico', '')
