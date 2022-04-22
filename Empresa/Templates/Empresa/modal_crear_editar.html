@@ -1,0 +1,37 @@
+{% if origen == 'CREAR' %}
+    <form action="{% url 'empresa:crear' %}" id="frm-empresa" method="post" enctype="multipart/form-data">
+{% else %}
+    <form action="{% url 'empresa:editar' empresa.id %}" id="frm-empresa" method="post" enctype="multipart/form-data">
+{% endif %}
+{% csrf_token %}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% if origen == 'CREAR' %}Crear Empresa{% else %}Modificar Empresa{% endif %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    {% include 'Generales/text.html' with nombre='nombre_empresa' label='Nombre de la Empresa' placeholder='Ingrese un nombre' valor_editar=empresa.nombre_empresa %}
+                    {% include 'Generales/text.html' with nombre='nombre_comercial' label='Nombre Comercial' placeholder='Ingrese un nombre' valor_editar=empresa.nombre_comercial %}
+                    {% include 'Generales/text.html' with nombre='nit' label='Nit' placeholder='Ingrese el Nit' valor_editar=empresa.nit %}
+                    {% include 'Generales/text.html' with nombre='direccion' label='Dirección' placeholder='Dirección' valor_editar=empresa.direccion %}
+                    {% include 'Generales/number.html' with nombre='telefono' label='Teléfono' placeholder='Teléfono' valor_editar=empresa.telefono %}
+                    {% include 'Generales/email.html' with nombre='correo_electronico' valor_editar=empresa.correo_electronico %}
+                    {% include 'Generales/text.html' with nombre='url_web' label='URL de la WEB' placeholder='Ingrese una URL' valor_editar=empresa.url_web %}
+                    {% include 'Generales/text.html' with nombre='pais' label='País' placeholder='Ingrese un País' valor_editar=empresa.pais %}
+                    {% include 'Generales/text.html' with nombre='departamento' label='Departamento' placeholder='Ingrese un Departamento' valor_editar=empresa.departamento %}
+                    {% include 'Generales/text.html' with nombre='ciudad' label='Ciudad' placeholder='Ingrese una Ciudad' valor_editar=empresa.ciudad %}
+                    {% include 'Generales/select.html' with label='Usuario Administrador' nombre='usuario_admin' valores=usuarios valor_editar=empresa.usuario_admin_id %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    {% if origen == 'CREAR' %}Crear{% else %}Guardar{% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

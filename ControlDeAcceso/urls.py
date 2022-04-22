@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('usuarios/', include('Usuarios.urls', namespace='usuarios')),
+    path('empresa/', include('Empresa.urls', namespace='empresa')),
 ]
