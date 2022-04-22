@@ -1,0 +1,84 @@
+{% if origen == 'CREAR' %}
+    <form action="{% url 'usuarios:crear' %}" id="frm-usuario" method="post" enctype="multipart/form-data">
+{% else %}
+    <form action="{% url 'usuarios:editar' usuario.id %}" id="frm-usuario" method="post" enctype="multipart/form-data">
+{% endif %}
+{% csrf_token %}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% if origen == 'CREAR' %}Crear Usuario{% else %}Modificar Usuario{% endif %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="nombre_id" id="label_nombre_id">Nombres</label>
+                        <input type="text" class="form-control form-control-md" id="nombre_id" name="nombre"
+                               placeholder="Nombres Completos" maxlength="50" value="{{ usuario.usuario.first_name }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="apellido_id" id="label_apellido_id">Apellidos</label>
+                        <input type="text" class="form-control form-control-md" id="apellido_id" name="apellido"
+                               placeholder="Apellidos Completos" maxlength="50" value="{{ usuario.usuario.last_name }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="direccion_id" id="label_direccion_id">Dirección</label>
+                        <input type="text" class="form-control form-control-md" id="direccion_id" name="direccion"
+                               placeholder="Dirección" maxlength="100" value="{{ usuario.direccion }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="correo_id" id="label_correo_id">Correo Electrónico</label>
+                        <input type="email" class="form-control form-control-md" id="correo_id" name="correo"
+                               placeholder="Correo Electrónico" maxlength="100" value="{{ usuario.usuario.email }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="telefono_id" id="label_telefono_id">Numero de Teléfono</label>
+                        <input type="number" class="form-control form-control-md" id="telefono_id" name="telefono"
+                               placeholder="Teléfono Celular" min="0" max="9999999999" value="{{ usuario.telefono }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="pais_id" id="label_pais_id">País</label>
+                        <input type="text" class="form-control form-control-md" id="pais_id" name="pais"
+                               placeholder="País" maxlength="100" value="{{ usuario.pais }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="departamento_id" id="label_departamento_id">Departamento</label>
+                        <input type="text" class="form-control form-control-md" id="departamento_id" name="departamento"
+                               placeholder="Departamento" maxlength="100" value="{{ usuario.departamento }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="ciudad_id" id="label_ciudad_id">Ciudad</label>
+                        <input type="text" class="form-control form-control-md" id="ciudad_id" name="ciudad"
+                               placeholder="Ciudad" maxlength="100" value="{{ usuario.ciudad }}" required>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="select_rol_id" id="label_rol_id">Rol del Usuario</label>
+                        <select class="form-control form-control-md select2" id="select_rol_id" name="rol" required>
+                            <option value="">Seleccione una opción</option>
+                            {% for rol in roles %}
+                                <option value="{{ rol.id }}" {% if rol == usuario.group.all.1 %} selected {% endif %}>{{ rol.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                {% if origen == 'EDITAR' %}
+                <div class="col-xs-12 col-sm-6 mb-6">
+                    <label for="select_estado_id" id="label_estado_id">Estado</label>
+                    <select class="form-control form-control-md select2" id="select_estado_id" name="estado" required>
+                        <option value="1" {% if usuario.usuario.is_active %} selected {% endif %}>Activo</option>
+                        <option value="2" {% if not usuario.usuario.is_active %} selected {% endif %}>Inactivo</option>
+                    </select>
+                </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    {% if origen == 'CREAR' %}Crear{% else %}Guardar{% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
