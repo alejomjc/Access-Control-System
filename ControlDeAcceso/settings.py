@@ -19,6 +19,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = f'"CDA" <{EMAIL_HOST_USER}>'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-a9a3&4lj&j8pyecr=vo-dq)r_k($u)1b26vi08p4k=&_go#a##'
 
