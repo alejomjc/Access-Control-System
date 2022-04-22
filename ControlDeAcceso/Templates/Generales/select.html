@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-6 mb-6">
     <label for="{{ nombre }}_id" id="label_{{ nombre }}_id">{{ label }}</label>
-    <select class="form-control form-control-md select2" id="{{ nombre }}_id" name="{{ nombre }}" required>
-        <option value="">Seleccione una opción</option>
+    <select class="form-control form-control-md select2" id="{{ nombre }}_id" {% if multiple %} name="{{ nombre }}{{ name }}}[]" multiple="multiple" {% else %}name="{{ nombre }}{{ name }}"{% endif %} required>
+        {% if not multiple %}<option value="">Seleccione una opción</option>{% endif %}
         {% for val in valores %}
             <option value="{{ val.id }}" {% if val.id == valor_editar %} selected {% endif %}>{{ val.nombre }}{{ val.first_name }} {{ val.last_name }}</option>
         {% endfor %}
