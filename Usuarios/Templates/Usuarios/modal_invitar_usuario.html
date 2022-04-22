@@ -1,0 +1,27 @@
+<form action="{% url 'usuarios:invitar' %}" id="frm-usuario-invitar" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invitar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-xs-12 col-sm-6 mb-6">
+                        <label for="correo_id" id="label_correo_id">Correo Electrónico</label>
+                        <input type="email" class="form-control form-control-md" id="correo_id" name="correo"
+                               placeholder="Correo Electrónico" maxlength="100" value="{{ usuario.usuario.email }}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    Invitar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
