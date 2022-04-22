@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -50,7 +50,10 @@ class EmpresaEliminarView(AuthAbsView):
 
 
 def datos_render(id_empresa=None):
-    usuarios = User.objects.exclude(is_superuser=True).values('id', 'first_name', 'last_name')
+    usuarios = User.objects\
+        .exclude(is_superuser=True)\
+        .exclude(groups__in=[Group.objects.get(name='Usuario de Empresa')])\
+        .values('id', 'first_name', 'last_name')
     datos = {'usuarios': usuarios, 'origen': 'CREAR'}
     if id_empresa:
         datos['empresa'] = Empresa.objects.get(id=id_empresa)

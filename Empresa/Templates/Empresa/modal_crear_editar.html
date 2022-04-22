@@ -24,7 +24,7 @@
                     {% include 'Generales/text.html' with nombre='pais' label='País' placeholder='Ingrese un País' valor_editar=empresa.pais %}
                     {% include 'Generales/text.html' with nombre='departamento' label='Departamento' placeholder='Ingrese un Departamento' valor_editar=empresa.departamento %}
                     {% include 'Generales/text.html' with nombre='ciudad' label='Ciudad' placeholder='Ingrese una Ciudad' valor_editar=empresa.ciudad %}
-                    {% include 'Generales/select.html' with label='Usuario Administrador' nombre='usuario_admin' valores=usuarios valor_editar=empresa.usuario_admin_id %}
+                    {% include 'Generales/select.html' with label='Usuario Administrador' nombre='usuario_admin' valores=usuarios valor_editar=empresa.usuario_admin_id no_requerido=True %}
                 </div>
             </div>
             <div class="modal-footer">

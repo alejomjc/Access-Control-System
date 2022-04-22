@@ -9,8 +9,7 @@ from Empresa.models.models import HorarioAcceso
 
 class HorariosAccesosView(AuthAbsView):
     def get(self, request):
-        # empresas = HorarioAcceso.objects.filter(empresa_id=request.session["empresa_id"])
-        horarios = HorarioAcceso.objects.filter(empresa_id=2)
+        horarios = HorarioAcceso.objects.filter(empresa_id=request.session["empresa_id"])
         return render(request, 'HorarioAcceso/index.html', {'horarios': horarios})
 
 
@@ -21,8 +20,7 @@ class HorarioAccesoCrearView(AuthAbsView):
     @transaction.atomic
     def post(self, request):
         horario = HorarioAcceso.data_form_horario_acceso(request.POST)
-        # horario.empresa_id = request.session["empresa_id"]
-        horario.empresa_id = 2
+        horario.empresa_id = request.session["empresa_id"]
         horario.save()
         return redirect(reverse('empresa:horario-acceso'))
 
