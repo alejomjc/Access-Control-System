@@ -3,18 +3,18 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views import View
 
+from ControlDeAcceso.views.mid_auth import AuthAbsView
 from Usuarios.models import Usuario
 
 
-class UsuariosView(View):
+class UsuariosView(AuthAbsView):
     def get(self, request):
         usuarios = Usuario.objects.all().exclude(usuario__is_superuser=True)
         return render(request, 'Usuarios/index.html', {'usuarios': usuarios})
 
 
-class UsuarioCrearView(View):
+class UsuarioCrearView(AuthAbsView):
     def get(self, request):
         return render(request, 'Usuarios/modal_crear_editar.html', datos_render())
 
@@ -37,7 +37,7 @@ class UsuarioCrearView(View):
         return redirect(reverse('usuarios:index'))
 
 
-class UsuarioEditarView(View):
+class UsuarioEditarView(AuthAbsView):
     def get(self, request, id):
         return render(request, 'Usuarios/modal_crear_editar.html', datos_render(id))
 
@@ -59,7 +59,7 @@ class UsuarioEditarView(View):
         return redirect(reverse('usuarios:index'))
 
 
-class UsuarioEliminarView(View):
+class UsuarioEliminarView(AuthAbsView):
     @transaction.atomic
     def post(self, request, id):
         try:

@@ -2,19 +2,19 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views import View
 
-from Empresa.models.models import Empresa, HorarioAcceso
+from ControlDeAcceso.views.mid_auth import AuthAbsView
+from Empresa.models.models import HorarioAcceso
 
 
-class HorariosAccesosView(View):
+class HorariosAccesosView(AuthAbsView):
     def get(self, request):
         # empresas = HorarioAcceso.objects.filter(empresa_id=request.session["empresa_id"])
         horarios = HorarioAcceso.objects.filter(empresa_id=2)
         return render(request, 'HorarioAcceso/index.html', {'horarios': horarios})
 
 
-class HorarioAccesoCrearView(View):
+class HorarioAccesoCrearView(AuthAbsView):
     def get(self, request):
         return render(request, 'HorarioAcceso/modal_crear_editar.html', datos_render())
 
@@ -27,7 +27,7 @@ class HorarioAccesoCrearView(View):
         return redirect(reverse('empresa:horario-acceso'))
 
 
-class HorarioAccesoEditarView(View):
+class HorarioAccesoEditarView(AuthAbsView):
     def get(self, request, id):
         return render(request, 'HorarioAcceso/modal_crear_editar.html', datos_render(id))
 
@@ -39,7 +39,7 @@ class HorarioAccesoEditarView(View):
         return redirect(reverse('empresa:horario-acceso'))
 
 
-class HorarioAccesoEliminarView(View):
+class HorarioAccesoEliminarView(AuthAbsView):
     @transaction.atomic
     def post(self, request, id):
         try:

@@ -3,18 +3,18 @@ from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views import View
 
+from ControlDeAcceso.views.mid_auth import AuthAbsView
 from Empresa.models.models import Empresa
 
 
-class EmpresasView(View):
+class EmpresasView(AuthAbsView):
     def get(self, request):
         empresas = Empresa.objects.all()
         return render(request, 'Empresa/index.html', {'empresas': empresas})
 
 
-class EmpresaCrearView(View):
+class EmpresaCrearView(AuthAbsView):
     def get(self, request):
         return render(request, 'Empresa/modal_crear_editar.html', datos_render())
 
@@ -25,7 +25,7 @@ class EmpresaCrearView(View):
         return redirect(reverse('empresa:index'))
 
 
-class EmpresaEditarView(View):
+class EmpresaEditarView(AuthAbsView):
     def get(self, request, id):
         return render(request, 'Empresa/modal_crear_editar.html', datos_render(id))
 
@@ -38,7 +38,7 @@ class EmpresaEditarView(View):
         return redirect(reverse('empresa:index'))
 
 
-class EmpresaEliminarView(View):
+class EmpresaEliminarView(AuthAbsView):
     @transaction.atomic
     def post(self, request, id):
         try:

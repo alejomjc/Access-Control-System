@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ControlDeAcceso.views.view import IndexView
+from ControlDeAcceso.views import auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
+    path('iniciar-sesion', auth.IniciarSesionView.as_view(), name='iniciar-sesion'),
+    path('cerrar-sesion', auth.CerrarSesion.as_view(), name='cerrar-sesion'),
     path('usuarios/', include('Usuarios.urls', namespace='usuarios')),
     path('empresa/', include('Empresa.urls', namespace='empresa')),
 ]

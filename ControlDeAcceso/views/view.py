@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.views import View
+
+from ControlDeAcceso.views.mid_auth import AuthAbsView
 
 
-class IndexView(View):
+class IndexView(AuthAbsView):
     def get(self, request):
         return render(request, 'Index/index.html')
