@@ -32,3 +32,17 @@ class Usuario(models.Model):
         usuario.departamento = datos.get('departamento', '')
         usuario.ciudad = datos.get('ciudad', '')
         return usuario
+
+
+class TokenCorreo(models.Model):
+    token = models.CharField(max_length=100, verbose_name='Token', null=False, blank=False)
+    ruta = models.CharField(max_length=100, verbose_name='Ruta', null=False, blank=False)
+    datos = models.TextField(verbose_name='Datos', null=True, blank=True)
+    activo = models.BooleanField(verbose_name='Activo', null=False, blank=False, default=True)
+
+    def __str__(self):
+        return self.token
+
+    class Meta:
+        verbose_name = 'Token Correo'
+        verbose_name_plural = 'Tokens Correos'
