@@ -1,7 +1,7 @@
 {% if origen == 'CREAR' %}
     <form action="{% url 'usuarios:crear' %}" id="frm-usuario" method="post" enctype="multipart/form-data">
 {% else %}
-    <form action="{% url 'usuarios:editar' usuario.id %}" id="frm-usuario" method="post" enctype="multipart/form-data">
+    <form action="{% url 'usuarios:editar' usuario.usuario.id %}" id="frm-usuario" method="post" enctype="multipart/form-data">
 {% endif %}
 {% csrf_token %}
     <div class="modal-dialog modal-md" role="document">
@@ -54,25 +54,19 @@
                         <input type="text" class="form-control form-control-md" id="ciudad_id" name="ciudad"
                                placeholder="Ciudad" maxlength="100" value="{{ usuario.ciudad }}" required>
                     </div>
-                    <div class="col-xs-12 col-sm-6 mb-6">
-                        <label for="select_rol_id" id="label_rol_id">Rol del Usuario</label>
-                        <select class="form-control form-control-md select2" id="select_rol_id" name="rol" required>
-                            <option value="">Seleccione una opción</option>
-                            {% for rol in roles %}
-                                <option value="{{ rol.id }}" {% if rol == usuario.group.all.1 %} selected {% endif %}>{{ rol.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    {% if request.user.is_superuser %}
+                        {% include 'Generales/select.html' with label='Empresa' nombre='empresa' valores=empresas valor_editar=usuario.empresa.id %}
+                    {% endif %}
+                    {% if origen == 'EDITAR' %}
+                        <div class="col-xs-12 col-sm-6 mb-6">
+                            <label for="select_estado_id" id="label_estado_id">Estado</label>
+                            <select class="form-control form-control-md select2" id="select_estado_id" name="estado" required>
+                                <option value="1" {% if usuario.usuario.is_active %} selected {% endif %}>Activo</option>
+                                <option value="2" {% if not usuario.usuario.is_active %} selected {% endif %}>Inactivo</option>
+                            </select>
+                        </div>
+                    {% endif %}
                 </div>
-                {% if origen == 'EDITAR' %}
-                <div class="col-xs-12 col-sm-6 mb-6">
-                    <label for="select_estado_id" id="label_estado_id">Estado</label>
-                    <select class="form-control form-control-md select2" id="select_estado_id" name="estado" required>
-                        <option value="1" {% if usuario.usuario.is_active %} selected {% endif %}>Activo</option>
-                        <option value="2" {% if not usuario.usuario.is_active %} selected {% endif %}>Inactivo</option>
-                    </select>
-                </div>
-                {% endif %}
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">
