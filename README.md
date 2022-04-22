@@ -9,6 +9,7 @@ Este proyecto se creó con la finalidad de aplicar a una vacande de desarrollado
 3. Como base de datos, se usa postgresSQL, se debe crear una DB con nombre CDA y restaurar con el archivo localizado en /RestauracionDB/DB-CDA
 Opcional a ello se puede usar cualquier otra, pero harian falta los datos de parametrización.
 4. luego, solo se debe correr el comando python manage.py runserver.
+5. Para crear un usuario super administrador, se debe ejecutar el comando python manage.py createsuperuser ya que la aplicación exige la autenticación desde el inicio de su ejecución.
 
 ## Funcionalidades Correctas
 1. CRUD de Empresa, Usuarios, Puntos de Acceso, Horarios de Acceso.
