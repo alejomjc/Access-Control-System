@@ -21,7 +21,7 @@
                     </a>
                 {% endif %}
             {% endif %}
-            {% if perms.Empresa.view_horarioacceso or perms.Empresa.view_puntoacceso %}
+            {% if perms.Empresa.view_horarioacceso and not request.user.is_superuser or perms.Empresa.view_puntoacceso and not request.user.is_superuser %}
                 <div class="sb-sidenav-menu-heading">Gestión Empresarial</div>
                 {% if perms.Empresa.view_horarioacceso %}
                     <a class="nav-link" href="{% url 'Empresa:horario-acceso' %}">
