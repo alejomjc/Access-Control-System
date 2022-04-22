@@ -1,0 +1,28 @@
+{% if origen == 'CREAR' %}
+    <form action="{% url 'empresa:horario-acceso-crear' %}" id="frm-horario" method="post" enctype="multipart/form-data">
+{% else %}
+    <form action="{% url 'empresa:horario-acceso-editar' horario.id %}" id="frm-horario" method="post" enctype="multipart/form-data">
+{% endif %}
+{% csrf_token %}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% if origen == 'CREAR' %}Crear Horario de Acceso{% else %}Modificar Horario de Acceso{% endif %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    {% include 'Generales/time.html' with nombre='hora_inicio' label='Hora de Inicio' placeholder='Ingrese un nombre' valor_editar=horario.hora_inicio %}
+                    {% include 'Generales/time.html' with nombre='hora_finalizacion' label='Hora de Finalización' placeholder='Ingrese un nombre' valor_editar=horario.hora_finalizacion %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    {% if origen == 'CREAR' %}Crear{% else %}Guardar{% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

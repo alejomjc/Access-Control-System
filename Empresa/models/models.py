@@ -40,6 +40,7 @@ class Empresa(models.Model):
 
 
 class HorarioAcceso(models.Model):
+    empresa = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING, blank=False, null=False)
     hora_inicio = models.TimeField(max_length=100, verbose_name='Nombre de la Empresa', blank=True, null=True)
     hora_finalizacion = models.TimeField(max_length=100, verbose_name='Nombre de la Empresa', blank=True, null=True)
 
