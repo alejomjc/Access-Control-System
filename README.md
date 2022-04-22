@@ -21,3 +21,12 @@ Opcional a ello se puede usar cualquier otra, pero harian falta los datos de par
 1. Las funcionalidades dependientes de correo electrónico no son funcionales, debido a problemas de autenticación con servidores SMTP.
 2. Conexión REST
 3. Asignación de accesos a usuarios invitados
+
+## Vista Previa de la Web
+![image](https://user-images.githubusercontent.com/37114980/164785407-f5b2abba-c736-4c5b-9756-9f0d2565c0b6.png)
+![image](https://user-images.githubusercontent.com/37114980/164785513-29e78f20-d8e8-46b2-8643-0e0f139aad69.png)
+![image](https://user-images.githubusercontent.com/37114980/164785535-38b7c5d6-9de9-42b9-b15b-77c36043140b.png)
+![image](https://user-images.githubusercontent.com/37114980/164785589-f78b949c-4bad-46d2-8c35-ceaae12532bf.png)
+
+
+
