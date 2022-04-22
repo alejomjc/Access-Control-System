@@ -1,0 +1,14 @@
+<b> Sistema de Control de Acceso</b>
+<br><br>
+Estimado(a) usuario(a): {{ nombre }}
+<br>
+<h1>{{ asunto }}</h1>
+<div style="max-width: 800px;padding:20px;background:#ededed;border-radius:5px">
+{{ mensaje | safe }}
+<br>
+{% if token %}
+    <a target="_blank" href='http://127.0.0.1:8000/notificaciones/token/{{ token }}'>Acceder</a><br>
+    <br>
+{% endif %}
+</div>
+<br>
