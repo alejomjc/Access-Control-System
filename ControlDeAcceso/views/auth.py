@@ -20,24 +20,20 @@ class IniciarSesionView(View):
             username: str = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = authenticate(username=username.lower(), password=password)
-            if user is not None:
-                login(request, user)
-                try:
-                    usuario = Usuario.objects.get(usuario=user)
-                    request.session['empresa_id'] = usuario.empresa_id
-                except:
-                    if not user.is_superuser:
-                        logout(request)
-                        return render(request, 'Auth/login.html')
-            else:
-                return render(request, 'Auth/login.html')
+            login(request, user)
+
+            try:
+                usuario = Usuario.objects.get(usuario=user)
+                request.session['empresa_id'] = usuario.empresa_id
+            except:
+                request.session['empresa_id'] = ''
+            return redirect(reverse('index'))
 
 
 class CerrarSesion(View):
     def get(self, request):
         if request.user.is_authenticated:
             logout(request)
-            messages.success(request, 'Se ha cerrado la sesión')
-            return redirect(reverse('Administracion:inicio-sesion'))
+            return redirect(reverse('iniciar-sesion'))
         else:
-            return redirect(reverse('Administracion:inicio-sesion'))
+            return redirect(reverse('iniciar-sesion'))
