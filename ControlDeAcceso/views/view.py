@@ -4,4 +4,4 @@ from django.views import View
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'Plantilla/index.html')
+        return render(request, 'Index/index.html')
