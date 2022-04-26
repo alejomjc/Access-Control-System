@@ -66,7 +66,6 @@ class PuntoAcceso(models.Model):
     correo_electronico = models.EmailField(verbose_name='Correo Electrónico', blank=True, null=True)
     longitud = models.CharField(max_length=50, verbose_name='Pais', blank=True, null=True)
     latitud = models.CharField(max_length=50, verbose_name='Pais', blank=True, null=True)
-    horario_acceso = models.ManyToManyField(HorarioAcceso, verbose_name='Horarios de Acceso', blank=True, null=True)
     estado = models.BooleanField(verbose_name='Url de la Web', blank=True, null=True)
 
     def __str__(self):
@@ -88,12 +87,30 @@ class PuntoAcceso(models.Model):
         return punto
 
 
-class UsuarioPuntoAtencion(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Empresa', blank=True, null=True)
-    punto_acceso = models.ForeignKey(PuntoAcceso, on_delete=models.DO_NOTHING, verbose_name='Empresa', blank=True, null=True)
+class PuntoAccesoHorario(models.Model):
+    punto_acceso = models.ForeignKey(PuntoAcceso, on_delete=models.DO_NOTHING, verbose_name='Punto de Acceso',
+                                     blank=True, null=True)
+    horario_acceso = models.ForeignKey(HorarioAcceso, on_delete=models.DO_NOTHING, verbose_name='Punto de Acceso',
+                                       blank=True, null=True)
 
     def __str__(self):
-        return '{0}-{1}'.format(self.usuario, self.punto_acceso)
+        return '{0} - {1}'.format(self.punto_acceso, self.horario_acceso)
+
+    class Meta:
+        verbose_name = 'Horario Punto de Acceso'
+        verbose_name_plural = 'Horarios Puntos de Acceso'
+
+
+class UsuarioPuntoAtencion(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Empresa',
+                                blank=True, null=True)
+    punto_acceso = models.ForeignKey(PuntoAcceso, on_delete=models.DO_NOTHING, verbose_name='Empresa',
+                                     blank=True, null=True)
+    punto_horario = models.OneToOneField(PuntoAccesoHorario, on_delete=models.DO_NOTHING, verbose_name='Punto Horario',
+                                         blank=True, null=True)
+
+    def __str__(self):
+        return '{0}-{1}-{2}'.format(self.usuario, self.punto_acceso, self.punto_horario)
 
     class Meta:
         verbose_name = 'Usuario Punto de Atención'
