@@ -26,6 +26,7 @@ Para usar el servicio, es necesario que mediante Postman se realice una petició
 - empresa
 - username
 - sede
+
 Donde empresa, es el nombre de la empresa, el username, el nombre.apellido y la sede, el nombre de la sede de donde se consulta.
 El acceso se calcula con la hora actual de sistema, si es correcto, retorna los datos de la sede, sino, retorna False.
 
