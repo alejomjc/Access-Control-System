@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from ControlDeAcceso.views.mid_auth import AuthAbsView
-from Empresa.models.models import HorarioAcceso, PuntoAcceso
+from Empresa.models.models import HorarioAcceso, PuntoAcceso, PuntoAccesoHorario
 
 
 class PuntosAccesosView(AuthAbsView):
@@ -22,8 +22,8 @@ class PuntoAccesoCrearView(AuthAbsView):
         punto = PuntoAcceso.data_form_punto_acceso(request.POST)
         punto.empresa_id = request.session['empresa_id']
         punto.save()
-        for hor in request.POST.get('horario[]', []):
-            punto.horario_acceso.add(HorarioAcceso.objects.get(id=hor))
+        for hor in request.POST.getlist('horario[]', []):
+            PuntoAccesoHorario.objects.create(punto_acceso=punto, horario_acceso_id=hor)
         return redirect(reverse('empresa:punto-acceso'))
 
 
@@ -36,9 +36,9 @@ class PuntoAccesoEditarView(AuthAbsView):
         punto = PuntoAcceso.data_form_punto_acceso(request.POST)
         punto.id = id
         punto.save(update_fields=['nombre', 'direccion', 'correo_electronico', 'longitud', 'latitud', 'estado'])
-        punto.horario_acceso.remove()
-        for hor in request.POST.get('horario[]', []):
-            punto.horario_acceso.add(HorarioAcceso.objects.get(id=hor))
+        PuntoAccesoHorario.objects.filter(punto_acceso=punto).delete()
+        for hor in request.POST.getlist('horario[]', []):
+            PuntoAccesoHorario.objects.create(punto_acceso=punto, horario_acceso_id=hor)
         return redirect(reverse('empresa:punto-acceso'))
 
 
@@ -46,7 +46,9 @@ class PuntoAccesoEliminarView(AuthAbsView):
     @transaction.atomic
     def post(self, request, id):
         try:
-            PuntoAcceso.objects.get(id=id).delete()
+            punto = PuntoAcceso.objects.get(id=id)
+            PuntoAccesoHorario.objects.filter(punto_acceso=punto).delete()
+            punto.delete()
             return JsonResponse({"estado": "OK"})
         except:
             return JsonResponse({"estado": "error",
@@ -61,6 +63,6 @@ def datos_render(request, id_punto=None):
     if id_punto:
         punto = PuntoAcceso.objects.get(id=id_punto)
         datos['punto'] = punto
-        datos['valores_horarios'] = [ha.id for ha in punto.horario_acceso.all()]
+        datos['valores_horarios'] = [ha.id for ha in punto.puntoaccesohorario_set.all()]
         datos['origen'] = 'EDITAR'
     return datos

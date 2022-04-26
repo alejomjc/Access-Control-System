@@ -48,7 +48,7 @@
                                         <i class="fa-solid fa-map-location-dot"></i></a>
                                 </td>
                                 <td>
-                                    {% for hor in ptn.horario_acceso.all %}{{ hor.hora_inicio }} - {{ hor.hora_finalizacion }}<br>{% endfor %}
+                                    {% for hor in ptn.puntoaccesohorario_set.all %}{{ hor.horario_acceso.hora_inicio }} - {{ hor.horario_acceso.hora_finalizacion }}<br>{% endfor %}
                                 </td>
                                 <td>{% if ptn.estado %}Activo{% else %}Inactivo{% endif %}</td>
                                 <td>
