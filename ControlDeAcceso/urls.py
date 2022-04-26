@@ -26,4 +26,5 @@ urlpatterns = [
     path('cerrar-sesion', auth.CerrarSesion.as_view(), name='cerrar-sesion'),
     path('usuarios/', include('Usuarios.urls', namespace='usuarios')),
     path('empresa/', include('Empresa.urls', namespace='empresa')),
+    path('api/', include('API.urls', namespace='api')),
 ]
