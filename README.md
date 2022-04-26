@@ -22,7 +22,7 @@ Opcional a ello se puede usar cualquier otra, pero harian falta los datos de par
 ## Actualizado
 1. Peticiones REST para validar el acceso de un empleado a la empresa.
 
-Para usar el servicio, es necesario que mediante Postman se realice una petición GET a la url http://127.0.0.1:8002/api/consultar-acceso con el proyecto corriendo, y se le envíen los siguientes parámetros.
+Para usar el servicio, es necesario que mediante Postman se realice una petición GET a la url http://127.0.0.1:8002/api/consultar-acceso con el proyecto corriendo, y se le envíen los siguientes parámetros. Adicional a esto, se debe tener restaurada la copia de la DB con nombre Restore_CDA_REST, la cual contiene los datos necesarios y la parametrización lista para consumo del API.
 - empresa
 - username
 - sede
