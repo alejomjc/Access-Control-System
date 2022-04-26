@@ -101,16 +101,14 @@ class PuntoAccesoHorario(models.Model):
         verbose_name_plural = 'Horarios Puntos de Acceso'
 
 
-class UsuarioPuntoAtencion(models.Model):
+class UsuarioPuntoHorario(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name='Empresa',
                                 blank=True, null=True)
-    punto_acceso = models.ForeignKey(PuntoAcceso, on_delete=models.DO_NOTHING, verbose_name='Empresa',
-                                     blank=True, null=True)
     punto_horario = models.OneToOneField(PuntoAccesoHorario, on_delete=models.DO_NOTHING, verbose_name='Punto Horario',
                                          blank=True, null=True)
 
     def __str__(self):
-        return '{0}-{1}-{2}'.format(self.usuario, self.punto_acceso, self.punto_horario)
+        return '{0}-{1}'.format(self.usuario, self.punto_horario)
 
     class Meta:
         verbose_name = 'Usuario Punto de Atención'

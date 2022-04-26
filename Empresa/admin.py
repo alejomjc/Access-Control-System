@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from Empresa.models import UsuarioPuntoAtencion
+from Empresa.models import UsuarioPuntoHorario
 
 
-@admin.register(UsuarioPuntoAtencion)
+@admin.register(UsuarioPuntoHorario)
 class UsuarioPuntoAtencionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'usuario', 'punto_acceso')
-    list_display_links = ('id', 'usuario', 'punto_acceso')
-    search_fields = ('id', 'usuario', 'punto_acceso')
+    list_display = ('id', 'usuario', 'punto_horario')
+    list_display_links = ('id', 'usuario', 'punto_horario')
+    search_fields = ('id', 'usuario', 'punto_horario')
