@@ -3,3 +3,14 @@ psycopg2==2.9.3
 djangorestframework==3.13.1
 Markdown==3.3.6
 django-filter==21.1
+
+asgiref==3.5.2
+sqlparse==0.4.3
+tzdata==2022.5
+
+dj-database-url
+django-heroku
+gunicorn
+psycopg2
+python-decouple
+whitenoise
